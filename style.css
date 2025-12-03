@@ -1,0 +1,40 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+body {
+    background-color: #cccccc;
+}
+
+#desktop {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    display: flex;
+}
+
+/* .icon-area removed */
+
+#main-content {
+    flex-grow: 1;
+    position: relative;
+    overflow: hidden;
+}
+/* make canvas fill area without its own background */
+#canvas {
+    width: 100%;
+    height: 100vh;
+    background: #cccccc !important;
+    display: block;
+}
+body, #main-content {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Oxygen Mono", "Courier New", monospace;
+}

@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+<title>FBill</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="desktop">
+
+    <div id="main-content">
+        <div id='storydiv' style='display:block;'>
+            <div></div>
+        </div>
+
+        <div style="width:100%;margin:0 auto;">
+            <canvas id="canvas" style="margin-top:0;width:100%;height:100vh;display:block;" width="400" height="400">It appears that your browser doesn't support the canvas element.</canvas>
+        </div>
+
+        <div id='scorediv' style='display:none;'>
+            <h1>High Scores</h1>
+            <button id='hide' onClick='JavaScript:scorelistHide();'>Close</button>
+            <table id='scoretable'>
+                <thead><tr><th>Player</th><th>Level</th><th>Score</th><th>Date</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- keep a hidden pause control so existing JS can reference it safely -->
+<a id="pauseHref" style="display:none;" href="javascript:void(0);">Pause Game</a>
+
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="howler.js"></script>
+<script type="text/javascript" src="game.js"></script>
+<script>
+	function preload(arrayOfImages) {
+		$(arrayOfImages).each(function(){
+			$('<img/>')[0].src = this;
+		});
+	}
+
+	preload([
+		'sprites.png'
+	]);
+
+	window.onload = function () {
+		main();
+		// auto-start a new game at level 1 and make canvas full-size
+		setTimeout(function(){ gameStart(1); }, 100);
+	}
+</script>
+<script async src="js.js"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-1895914-1');
+</script>
+</body>
+</html>
