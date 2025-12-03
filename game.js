@@ -167,11 +167,15 @@ function uiLoadPix() {
 
   // load hand cursor images with fallbacks and error handlers
   handUpImg = new Image();
-  // prefer the available asset name
+  // prefer the available asset name; fallback to other likely names
   handUpImg.src = 'hand_up.png';
   handUpImg.onerror = function() {
-    // if loading fails, disable the custom hand cursor
-    handUpImg = null;
+    // try an alternative name, if that fails null out the image to avoid broken state
+    if (handUpImg.src.indexOf('hand_up.png') !== -1) {
+      handUpImg.src = 'hand_up.png';
+    } else {
+      handUpImg = null;
+    }
   };
 
   handDownImg = new Image();
@@ -275,9 +279,8 @@ function scorelistRecalc(str, level, score) {
 
   if (str === null || str[0] === 0) {
     tname = 'Anonymous';
-  } else {
-    tname = str;
   }
+  tname = str;
 
   scores[i].name = tname;
   scores[i].level = level;
@@ -297,29 +300,29 @@ function scorelistRecalc(str, level, score) {
 }
 
 function scorelistIsHighScore(val) {
-  if (numScores === 0) {
-    return true;
-  }
   return (val > scores[numScores - 1].score);
 }
 
 // Bill
 function Bill() {
-  this.state = BILL_STATE_IN;    // what is it doing?
-  this.index = 0;                // index of animation frame
-  this.x = 0;
-  this.y = 0;                    // location
-  this.dx = 0;                   // direction
-  this.target_x = 0;             // target x position
-  this.target_y = 0;             // target y position
-  this.target_c = 0;             // target computer
-  this.cargo = OS_WINGDOWS;      // which OS carried
-  this.x_offset = 0;             // accounts for width differences
-  this.y_offset = 0;             // 'bounce' factor for OS carried
-  this.sx = 0;
-  this.sy = 0;                   // used for drawing extra OS during switch
-  this.prev = null;
-  this.next = null;
+  this.state;    // what is it doing?
+  this.index;    // index of animation frame
+  this.x;
+  this.y;        // location
+  this.dx;       // direction
+  this.target_x; // target x position
+  this.target_y; // target y position
+  this.target_c; // target computer
+  this.dx;       // direction
+  this.dx;       // direction
+  this.dx;       // direction
+  this.cargo;    // which OS carried
+  this.x_offset; // accounts for width differences
+  this.y_offset; // 'bounce' factor for OS carried
+  this.sx;
+  this.sy;       // used for drawing extra OS during switch
+  this.prev;
+  this.next;
 }
 
 function getBorderBill(bill) {
@@ -1328,9 +1331,7 @@ function gameUpdate() {
     updateInfo();
     if (hordeGetCounter(HORDE_COUNTER_ON) +
       hordeGetCounter(HORDE_COUNTER_OFF) === 0) {
-      if (iteration > 0) {
-        score += (level * efficiency / iteration);
-      }
+      score += (level * efficiency / iteration);
       gamestate = STATE_BETWEEN;
     }
     if ((networkGetCounter(NETWORK_COUNTER_BASE) +
